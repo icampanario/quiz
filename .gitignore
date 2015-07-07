@@ -1,3 +1,5 @@
 node_modules
 npm-debug.log
 quiz/npm-debug.log
+quiz/quiz.sqlite
+quiz/.env
