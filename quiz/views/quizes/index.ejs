@@ -1,4 +1,10 @@
 <table>
+
+	<form method="get" action="quizes" >
+		<input type="text" name="search" />
+		<input type="submit" value="Buscar" />
+	</form>
+
 <% var i; for (i=0; i < quizes.length; i++) { %>
 	<tr>
 		<td><b>Pregunta <%= i + 1 %></b></td>
