@@ -4,4 +4,11 @@
 	<input type="text" name="respuesta" value="Respuesta" />
 	<input type="submit" value="Enviar" />
 
+	<p><a href="/quizes/<%= quiz.id %>/comments/new"><input type="button" value="Nuevo comentario" /></a></p>
+
+	<p><b>Comentarios</b></p>
+	<% for(index in quiz.comments) {%>
+		<p><%= quiz.comments[index].texto %></p>
+	<%}%>
+
 </form>
