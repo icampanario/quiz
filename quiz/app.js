@@ -29,13 +29,27 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
+    var now = new Date();
+    var lastreq = req.session.lastreq ? new Date(req.session.lastreq) : new Date();
+    
     // se guarda path actual para redirigir después de login o logout
     if (!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
+    
+        if ((now.getTime() - 120000) > lastreq.getTime()) { // milisegundos            
+            var errors = [{"message": '-> Sesión caducada'}];            
+            res.locals.session = req.session;         
+            res.render('sessions/new', { errors: errors });            
+        } else {            
+            req.session.lastreq = new Date();  
+            res.locals.session = req.session;
+            next();   
+      }
+    } else {                
+        req.session.lastreq = new Date();  
+        res.locals.session = req.session;
+        next();   
     }
-
-    res.locals.session = req.session;
-    next();
 });
 
 app.use('/', routes);
